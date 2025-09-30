@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inference Result</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .result-container {
+        background-color: white;
+        border: 2px solid #4caf50;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        text-align: center;
+      }
+
+      .result-title {
+        font-size: 24px;
+        color: #4caf50;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      .result-img {
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 5px;
+      }
+
+      .back-link {
+        font-size: 16px;
+        color: #4caf50;
+        text-decoration: none;
+        margin-top: 20px;
+        display: inline-block;
+      }
+
+      .back-link:hover {
+        color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="result-container">
+      <h1 class="result-title">Inference Result</h1>
+      <img
+        src="{{ url_for('serve_image', filename=img_path) }}"
+        alt="Annotated Image"
+        class="result-img"
+      />
+      <br />
+      <a href="/" class="back-link">Back to Upload</a>
+    </div>
+  </body>
+</html>

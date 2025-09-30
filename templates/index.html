@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YOLO Inference</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .scanner-container {
+        background-color: white;
+        border: 2px solid #4caf50;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        text-align: center;
+      }
+
+      .scanner-title {
+        font-size: 18px;
+        color: #4caf50;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+
+      .scanner-form {
+        margin: 15px 0;
+      }
+
+      .scanner-form input[type="file"] {
+        padding: 8px;
+        width: 100%;
+        border: 2px solid #4caf50;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .scanner-form button {
+        background-color: #4caf50;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 100%;
+        transition: background-color 0.3s ease;
+      }
+
+      .scanner-form button:hover {
+        background-color: #45a049;
+      }
+
+      .scanner-img-container {
+        width: 100%;
+        height: 200px; /* Limit the height */
+        margin-top: 20px;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+        display: none;
+      }
+
+      .scanner-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 5px;
+      }
+
+      .scanner-form label {
+        font-size: 14px;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      /* Animation for scanning effect */
+      .scanner-bar {
+        position: absolute;
+        top: -100%;
+        width: 100%;
+        height: 5px;
+        background: rgba(0, 255, 0, 0.7);
+        animation: scan 2s infinite;
+      }
+
+      @keyframes scan {
+        0% {
+          top: -100%;
+        }
+        50% {
+          top: 50%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scanner-container">
+      <h1 class="scanner-title">Upload Image for YOLO Inference</h1>
+      <form
+        action="/upload"
+        method="post"
+        enctype="multipart/form-data"
+        class="scanner-form"
+      >
+        <label for="file">Select an image file to scan:</label>
+        <input
+          type="file"
+          name="file"
+          accept="image/*"
+          required
+          onchange="showImagePreview(event)"
+        />
+        <button type="submit">Scan Image</button>
+      </form>
+
+      <!-- Hidden preview image with scanning effect -->
+      <div class="scanner-img-container" id="image-preview-container">
+        <img id="image-preview" src="" alt="Image Preview" />
+        <div class="scanner-bar"></div>
+      </div>
+    </div>
+
+    <script>
+      // Function to show the image preview and initiate scanning effect
+      function showImagePreview(event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const imagePreview = document.getElementById("image-preview");
+            const imageContainer = document.getElementById(
+              "image-preview-container"
+            );
+            imagePreview.src = e.target.result;
+            imageContainer.style.display = "block"; // Show the image container
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    </script>
+  </body>
+</html>
