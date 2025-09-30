@@ -39,7 +39,7 @@ def upload_image():
     return render_template('result.html', img_path='output.jpg')
 
 # Serve the images from the static folder
-@app.route('/static/<filename>')
+@app.route('/templates/<filename>')
 def serve_image(filename):
     return send_from_directory(os.path.join(app.root_path, 'static'), filename)
 
