@@ -33,15 +33,15 @@ def upload_image():
     for r in results:
         im_array = r.plot()  # Get the image with bounding boxes
         im = Image.fromarray(im_array[..., ::-1])  # Convert to PIL image
-        img_path = os.path.join('static', 'output.jpg')
-        im.save(img_path)  # Save the result image in static folder
+        img_path = os.path.join('templates', 'output.jpg')
+        im.save(img_path)  # Save the result image in templates folder
 
     return render_template('result.html', img_path='output.jpg')
 
-# Serve the images from the static folder
+# Serve the images from the templates folder
 @app.route('/templates/<filename>')
 def serve_image(filename):
-    return send_from_directory(os.path.join(app.root_path, 'static'), filename)
+    return send_from_directory(os.path.join(app.root_path, 'templates'), filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
